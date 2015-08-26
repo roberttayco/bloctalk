@@ -13,9 +13,6 @@ blocTalk.config(['$stateProvider', '$locationProvider', function($stateProvider,
    });
 }]);
 
-// blocTalk.controller('MainController', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
-//
-// }]);
 
 blocTalk.factory('Room', ['$firebaseArray', function($firebaseArray) {
    var rooms = $firebaseArray(ref);
