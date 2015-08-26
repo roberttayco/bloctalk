@@ -4,24 +4,22 @@ blocTalk.config(['$stateProvider', '$locationProvider', function($stateProvider,
    $locationProvider.html5Mode({
       enabled: true
    });
-
-   // Home view
-   $stateProvider.state('home', {
+   // Main view
+   $stateProvider.state('main', {
       url: '/',
-      controller: 'HomeController',
+      controller: 'Main.controller',
       templateUrl: '/templates/home.html'
    });
 }]);
 
 blocTalk.factory('Room', ['$firebaseArray', function($firebaseArray) {
    var $firebaseRef = new Firebase('https://bloctalk.firebaseio.com/');
-   var rooms = $firebaseArray($firebaseRef.child('rooms'));
-
+   var rooms        = $firebaseArray(ref);
    return {
       all: rooms
    };
 }]);
 
-blocTalk.controller('HomeController', ['$scope', 'Room', function($scope, Room) {
-
+blocTalk.controller('Main.controller', ['$scope', 'Room', function($scope, Room) {
+   $scope.rooms = Room.all;
 }]);
