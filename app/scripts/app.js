@@ -13,8 +13,8 @@ blocTalk.config(['$stateProvider', '$locationProvider', function($stateProvider,
 }]);
 
 blocTalk.factory('Room', ['$firebaseArray', function($firebaseArray) {
-   var $firebaseRef = new Firebase('https://bloctalk.firebaseio.com/');
-   var rooms        = $firebaseArray(ref);
+   var fbRef = new Firebase('https://bloctalk.firebaseio.com/');
+   var rooms = $firebaseArray(fbRef);
    return {
       all: rooms
    };
