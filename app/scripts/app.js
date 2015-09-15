@@ -1,4 +1,4 @@
-blocTalk = angular.module('BlocTalk', ['ui.router', 'firebase']);
+blocTalk = angular.module('BlocTalk', ['ui.router', 'firebase', 'ui.bootstrap']);
 
 blocTalk.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
    $locationProvider.html5Mode({
@@ -20,6 +20,19 @@ blocTalk.factory('Room', ['$firebaseArray', function($firebaseArray) {
    };
 }]);
 
-blocTalk.controller('Main.controller', ['$scope', 'Room', function($scope, Room) {
+blocTalk.controller('Main.controller', ['$scope', 'Room', '$modal', function($scope, Room) {
    $scope.rooms = Room.all;
+
+   $scope.open = function() {
+      var modalInstance = $modal.open({
+         templateUrl: '/templates/add-room-modal.html',
+         animation: $scope.animationsEnabled,
+         controller: 'AddRoom.controller',
+         size: size
+      });
+   };
+}]);
+
+blocTalk.controller('AddRoom.controller', ['$scope', '$modalInstance', 'Room', function($scope, $modalInstance, Room) {
+
 }]);
