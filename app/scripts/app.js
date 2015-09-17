@@ -20,15 +20,19 @@ blocTalk.factory('Room', ['$firebaseArray', function($firebaseArray) {
    };
 }]);
 
-blocTalk.controller('Main.controller', ['$scope', 'Room', '$modal', function($scope, Room) {
+blocTalk.controller('Main.controller', ['$scope', 'Room', '$modal', function($scope, Room, $modal) {
    $scope.rooms = Room.all;
 
    $scope.open = function() {
       var modalInstance = $modal.open({
+   <script type="text/ng-template" id="addRoomModal.html"> <div class="modal-body">
+         <h3>Enter a name for the room</h3>
+         <p><input type="text" placeholder="room name"></p>
+      </div>
+   </script>
          templateUrl: '/templates/add-room-modal.html',
-         animation: $scope.animationsEnabled,
-         controller: 'AddRoom.controller',
-         size: size
+         animation:   $scope.animationsEnabled,
+         controller:  'AddRoom.controller'
       });
    };
 }]);
