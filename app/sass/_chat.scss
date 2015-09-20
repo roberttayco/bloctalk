@@ -1,0 +1,39 @@
+.sidebar {
+   background: $color-gray-md;
+   height:     100%;
+   width:      250px;
+   margin:     0;
+   padding:    $base-spacing-unit * 3;
+   position:   fixed;
+   top:        0;
+   bottom:     100%;
+}
+
+.main-content {
+   height:      100%;
+   margin-left: 250px;
+   position:    relative;
+}
+   $content-heading-height: 80px;
+   .content-heading {
+      background: $color-gray-lt;
+      height:     $content-heading-height;
+      padding:    $base-spacing-unit * 3;
+      position:   fixed;
+      width:      100%;
+      z-index:    100;
+   }
+   .message-list {
+      display:    block;
+      list-style: none;
+      margin:     0;
+      overflow:   auto;
+      padding:    $content-heading-height $base-spacing-unit * 3;
+
+      li { border-bottom: 1px solid $color-gray-md; }
+   }
+   .message-content {
+      padding: $base-spacing-unit * 2 $base-spacing-unit * 4;
+
+      p:last-child { margin: 0; }
+   }
