@@ -1,4 +1,7 @@
 <div class="modal-body">
    <h3>Enter a name for the room</h3>
-   <p><input type="text" placeholder="room name"></p>
+   <form ng-submit="addNewRoom()">
+      <p><input ng-model="newRoomName" type="text" placeholder="room name"></p>
+      <button type="submit">Add Room</button>
+   </form>
 </div>

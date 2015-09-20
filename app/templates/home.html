@@ -3,7 +3,7 @@
       <h1>BlocTalk</h1>
       <a href="#" ng-click="open()">Add room</a>
       <ul>
-         <li ng-repeat="room in rooms">{{ room.name }}</li>
+         <li ng-repeat="room in rooms" ng-click="changeRoom(room)">{{ room.name }}</li>
       </ul>
    </div>
 
