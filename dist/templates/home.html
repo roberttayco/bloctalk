@@ -1,9 +1,11 @@
 <div>
    <div class="sidebar">
-      <h1>BlocTalk</h1>
-      <a href="#" ng-click="open()">Add room</a>
-      <ul>
-         <li ng-repeat="room in rooms" ng-click="changeRoom(room)">{{ room.name }}</li>
+      <div class="sidebar-header">
+         <h1 class="sidebar-title">BlocTalk</h1>
+         <a class="btn-primary" href="#" ng-click="open()">Add room</a>
+      </div>
+      <ul class="room-list">
+         <li class="room-list-item" ng-repeat="room in rooms" ng-click="changeRoom(room)">{{ room.name }}</li>
       </ul>
    </div>
 

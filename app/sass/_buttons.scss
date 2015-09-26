@@ -1,0 +1,12 @@
+.btn-primary {
+   background:    $color-accent;
+   border-radius: $radius-btn;
+   color:         #fff;
+   display:       inline-block;
+   padding:       $base-spacing-unit $base-spacing-unit * 2;
+
+   &:hover {
+      background: darken($color-accent, 10%);
+      text-decoration: none;
+   }
+}

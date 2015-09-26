@@ -1,5 +1,5 @@
 .sidebar {
-  background: #ccc;
+  background: #f8e7fb;
   height: 100%;
   width: 250px;
   margin: 0;
@@ -7,6 +7,31 @@
   position: fixed;
   top: 0;
   bottom: 100%; }
+
+.sidebar-header {
+  border-bottom: 1px solid #a74fb9;
+  margin-bottom: 18px;
+  padding-bottom: 18px; }
+
+.sidebar-title {
+  color: #a74fb9;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 12px;
+  margin-right: 18px;
+  text-transform: uppercase; }
+
+.room-list {
+  padding: 0; }
+
+.room-list-item {
+  list-style: none;
+  padding: 6px; }
+  .room-list-item:hover {
+    background: #a74fb9;
+    color: #fff;
+    cursor: pointer; }
 
 .main-content {
   height: 100%;
@@ -34,6 +59,16 @@
   padding: 12px 24px; }
   .message-content p:last-child {
     margin: 0; }
+
+.btn-primary {
+  background: #a74fb9;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  padding: 6px 12px; }
+  .btn-primary:hover {
+    background: #883d98;
+    text-decoration: none; }
 
 html, body {
   line-height: 1.5;

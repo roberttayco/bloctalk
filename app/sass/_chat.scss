@@ -1,5 +1,5 @@
 .sidebar {
-   background: $color-gray-md;
+   background: $color-accent-lt;
    height:     100%;
    width:      250px;
    margin:     0;
@@ -7,6 +7,34 @@
    position:   fixed;
    top:        0;
    bottom:     100%;
+}
+   .sidebar-header {
+      border-bottom:  1px solid $color-accent;
+      margin-bottom:  $base-spacing-unit * 3;
+      padding-bottom: $base-spacing-unit * 3;
+   }
+   .sidebar-title {
+      color:          $color-accent;
+      display:        inline-block;
+      font-size:      1em;
+      font-weight:    bold;
+      margin-bottom:  $base-spacing-unit * 2;
+      margin-right:   $base-spacing-unit * 3;
+      text-transform: uppercase;
+   }
+
+.room-list {
+   padding: 0;
+}
+.room-list-item {
+   list-style: none;
+   padding:    $base-spacing-unit;
+
+   &:hover {
+      background: $color-accent;
+      color:      #fff;
+      cursor:     pointer;
+   }
 }
 
 .main-content {

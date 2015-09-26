@@ -25,15 +25,18 @@ blocTalk.controller('Main.controller', ['$scope', 'Room', '$modal', function($sc
    $scope.currentRoom = null;
 
    $scope.changeRoom = function (room) {
+      // define what the current room is
       $scope.currentRoom = room;
    };
 
    $scope.addMessage = function () {
       var text = $scope.newMessageText;
-
+      // create new message in the current room
       var message = {
 
       };
+
+      // push to array, $add to db
 
       $scope.currentRoom.messages.push(message);
       $scope.rooms.$save($scope.currentRoom);
