@@ -11,45 +11,20 @@
 
    <div class="main-content">
       <div class="content-heading">
-         <h2>This is a room{{ room.name }}</h2>
+         <h2>This is a room {{ room }}</h2>
       </div>
       <ul class="message-list">
-         <li>
-            <div class="message-content">
-               <h5>Username</h5>
-               <p>This is a message in the chat room</p>
-            </div>
-            <div class="message-timestamp">
-               <p>{{ message.timestamp }}</p>
-            </div>
-         </li>
-         <li>
-            <div class="message-content">
-               <h5>Username</h5>
-               <p>This is a message in the chat room</p>
-            </div>
-            <div class="message-timestamp">
-               <p>{{ message.timestamp }}</p>
-            </div>
-         </li>
-         <li>
-            <div class="message-content">
-               <h5>Username</h5>
-               <p>This is a message in the chat room</p>
-            </div>
-            <div class="message-timestamp">
-               <p>{{ message.timestamp }}</p>
-            </div>
-         </li>
          <li ng-repeat="message in messages">
             <div class="message-content">
-               <h5>{{ message.user }}</h5>
-               <p>{{ message.content }}</p>
-            </div>
-            <div class="message-timestamp">
+               <h5>{{ message.author }}</h5>
+               <p>{{ message.msgContent }}</p>
                <p>{{ message.timestamp }}</p>
             </div>
          </li>
       </ul>
+      <div>
+         <input type="text" ng-model="newMessageText" placeholder="enter your message">
+         <button type="submit" ng-click="addMessage()">add message</button>
+      </div>
    </div>
 </div>
