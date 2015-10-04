@@ -32,6 +32,9 @@
     background: #a74fb9;
     color: #fff;
     cursor: pointer; }
+  .room-list-item.room-current {
+    background: #a74fb9;
+    color: #fff; }
 
 .main-content {
   height: 100%;

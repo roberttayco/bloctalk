@@ -11,20 +11,22 @@
 
    <div class="main-content">
       <div class="content-heading">
-         <h2>This is a room {{ room }}</h2>
+         <h2>{{ currentRoom.name }}</h2>
       </div>
       <ul class="message-list">
          <li ng-repeat="message in messages">
             <div class="message-content">
                <h5>{{ message.author }}</h5>
                <p>{{ message.msgContent }}</p>
-               <p>{{ message.timestamp }}</p>
+               <p>{{ message.timestamp | date: 'hh:mm' }}</p>
             </div>
          </li>
       </ul>
-      <div>
-         <input type="text" ng-model="newMessageText" placeholder="enter your message">
-         <button type="submit" ng-click="addMessage()">add message</button>
+      <div class="">
+         <form ng-submit="addMessage()">
+            <input type="text" ng-model="newMessageText" placeholder="enter your message">
+            <button type="submit">add message</button>
+         </form>
       </div>
    </div>
 </div>

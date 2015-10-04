@@ -17,46 +17,67 @@ blocTalk.factory('Room', ['$firebaseArray', function($firebaseArray) {
    // rooms object in the db
    var rooms = $firebaseArray(fbRef.child('rooms'));
    // messages object in the db
-   var msgs  = $firebaseArray(fbRef.child('messages'));
+   var msgs  = fbRef.child('messages');
 
    return {
       all: rooms,
-      messages: msgs
-      // messages: function(roomId) {
-         // msgs.orderByChild('roomId').equalTo(roomId);
-      // }
+      //messages: msgs
+      allMessages: function () {
+         return $firebaseArray(msgs);
+      },
+      messages: function(roomId) {
+         return $firebaseArray(msgs.orderByChild('roomId').equalTo(roomId));
+      }
    };
 }]);
 
 blocTalk.controller('Main.controller', ['$scope', 'Room', '$modal', function($scope, Room, $modal) {
    $scope.rooms       = Room.all;      // the list of all rooms
-   $scope.messages    = Room.messages; // list of all messages
+   $scope.messages    = null; // list of all messages
    $scope.currentRoom = null;
    // $scope.roomTitle   = $scope.currentRoom.name;
+
+   /*
+   var lastClickedRoom = $cookies.get('lastClickedRoom');
+   if (lastClickedRoom) {
+      // get the room object by ID from firebase
+      $scope.changeRoom(/* room object *//*);
+   /*}
+   */
 
    $scope.changeRoom = function(room) {
       // define what the current room is
       $scope.currentRoom = room;
+      $scope.messages = Room.messages(room.$id);
+
       console.log('changeRoom function fired');
       console.log(room.$id);
       console.log($scope.currentRoom);
       console.log($scope.messages);
+
+      /*
+      $cookies.put('lastClickedRoom', room.$id);
+      */
    };
 
    $scope.addMessage = function() {
+      // probably want to validate the text to make sure there's something there
+      // proabably want to validate that a room is selected
       var text   = $scope.newMessageText;
       // var roomId = $scope.currentRoom.$id;
       // create new message in the current room
       var message = {
-         content: text,
-         roomId:  $scope.currentRoom.$id
-         // timestamp: new Date()
-         // author: username
+         msgContent: text,
+         roomId:  $scope.currentRoom.$id,
+         timestamp: new Date().getTime(),
+         author: "robert"
       };
 
       // push to array, $add to db
-      Room.messages.push(message);
-      // $scope.rooms.$save($scope.currentRoom);
+      $scope.messages.$add(message);
+
+      // blank out the input field
+      $scope.newMessageText = '';
    };
 
    $scope.open = function() {
@@ -65,6 +86,11 @@ blocTalk.controller('Main.controller', ['$scope', 'Room', '$modal', function($sc
          controller:  'AddRoom.controller'
       });
    };
+
+   Room.all.$loaded().then(function (rooms) {
+      $scope.changeRoom(rooms[0]);
+      
+   });
 }]);
 
 blocTalk.controller('AddRoom.controller', ['$scope', '$modalInstance', 'Room', function($scope, $modalInstance, Room) {
