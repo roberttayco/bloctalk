@@ -1,4 +1,16 @@
-blocTalk = angular.module('BlocTalk', ['ui.router', 'firebase', 'ui.bootstrap']);
+blocTalk = angular.module('BlocTalk', ['ui.router', 'firebase', 'ui.bootstrap', 'ngCookies'])
+   .run(['$cookies', '$modal', function($cookies, $modal) {
+      var user = $cookies.user
+
+      if (!user || user === '') {
+         $modal.open({
+            templateUrl: '/templates/modal-username.html',
+            controller:  'SetUser.controller',
+            backdrop:    'static',
+            keyboard:    false
+         });
+      }
+   }]);
 
 blocTalk.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
    $locationProvider.html5Mode({
@@ -31,10 +43,11 @@ blocTalk.factory('Room', ['$firebaseArray', function($firebaseArray) {
    };
 }]);
 
-blocTalk.controller('Main.controller', ['$scope', 'Room', '$modal', function($scope, Room, $modal) {
+blocTalk.controller('Main.controller', ['$scope', 'Room', '$modal', '$cookies', function($scope, Room, $modal, $cookies) {
    $scope.rooms       = Room.all;      // the list of all rooms
    $scope.messages    = null; // list of all messages
    $scope.currentRoom = null;
+   $scope.currentUser = null;
    // $scope.roomTitle   = $scope.currentRoom.name;
 
    /*
@@ -63,14 +76,14 @@ blocTalk.controller('Main.controller', ['$scope', 'Room', '$modal', function($sc
    $scope.addMessage = function() {
       // probably want to validate the text to make sure there's something there
       // proabably want to validate that a room is selected
-      var text   = $scope.newMessageText;
-      // var roomId = $scope.currentRoom.$id;
-      // create new message in the current room
+      var text = $scope.newMessageText;
+      var user = $cookies.user;
+
       var message = {
          msgContent: text,
          roomId:  $scope.currentRoom.$id,
          timestamp: new Date().getTime(),
-         author: "robert"
+         author: user
       };
 
       // push to array, $add to db
@@ -80,16 +93,25 @@ blocTalk.controller('Main.controller', ['$scope', 'Room', '$modal', function($sc
       $scope.newMessageText = '';
    };
 
-   $scope.open = function() {
+   // add a new chat room
+   $scope.addRoom = function() {
       var modalInstance = $modal.open({
-         templateUrl: '/templates/add-room-modal.html',
+         templateUrl: '/templates/modal-add-room.html',
          controller:  'AddRoom.controller'
       });
    };
 
+   // allow the user to be switched
+   $scope.switchUser = function() {
+      var userModal = $modal.open({
+         templateUrl: '/templates/modal-username.html',
+         controller:  'SetUser.controller',
+      });
+   }
+
    Room.all.$loaded().then(function (rooms) {
       $scope.changeRoom(rooms[0]);
-      
+
    });
 }]);
 
@@ -104,6 +126,17 @@ blocTalk.controller('AddRoom.controller', ['$scope', '$modalInstance', 'Room', f
          room.$id = ref.key();
       });
       // close the modal when finished
+      $modalInstance.close();
+   };
+}]);
+
+blocTalk.controller('SetUser.controller', ['$scope', '$modalInstance', '$cookies', function($scope, $modalInstance, $cookies) {
+   $scope.setUser = function() {
+      var user = {
+         username: $scope.currentUser
+      };
+      console.log(user);
+      $cookies.user = $scope.currentUser;
       $modalInstance.close();
    };
 }]);

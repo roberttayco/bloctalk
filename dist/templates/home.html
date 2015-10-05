@@ -2,10 +2,11 @@
    <div class="sidebar">
       <div class="sidebar-header">
          <h1 class="sidebar-title">BlocTalk</h1>
-         <a class="btn-primary" href="#" ng-click="open()">Add room</a>
+         <a class="btn-primary" href="#" ng-click="addRoom()">Add room</a>
+         <a href="" ng-click="switchUser()">Switch user</a>
       </div>
       <ul class="room-list">
-         <li class="room-list-item" ng-repeat="room in rooms" ng-click="changeRoom(room)">{{ room.name }}</li>
+         <li class="room-list-item" ng-class="{ 'room-current': currentRoom.$id === room.$id }" ng-repeat="room in rooms" ng-click="changeRoom(room)">{{ room.name }}</li>
       </ul>
    </div>
 
